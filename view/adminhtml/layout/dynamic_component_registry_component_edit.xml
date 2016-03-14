@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="DavidVerholen_Teaser::js/teasergroup/bootstrap/teaser-group-post-action.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="dynamic_component_registry_component_form"/>
+        </referenceContainer>
+    </body>
+</page>

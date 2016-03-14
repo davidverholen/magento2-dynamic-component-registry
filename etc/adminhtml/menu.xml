@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="DavidVerholen_DynamicComponentRegistry::dynamic_component_registry_component"
+             title="Dynamic Components"
+             module="DavidVerholen_DynamicComponentRegistry"
+             sortOrder="100"
+             parent="Magento_Backend::system_other_settings"
+             action="dynamic_component_registry/component"
+             resource="DavidVerholen_DynamicComponentRegistry::dynamic_component_registry_component"/>
+    </menu>
+</config>

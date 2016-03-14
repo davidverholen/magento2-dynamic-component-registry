@@ -1,0 +1,17 @@
+{
+  "name": "davidverholen/dynamic-component-registry",
+  "description": "Magento2 Module to register Components dynamically in the Backend",
+  "require": {
+    "php": "^5.6.0|^7.0.0"
+  },
+  "type": "magento2-module",
+  "license": "proprietary",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "DavidVerholen\\DynamicComponentRegistry\\": ""
+    }
+  }
+}
