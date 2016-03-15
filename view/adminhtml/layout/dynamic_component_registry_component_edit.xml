@@ -7,7 +7,7 @@
     </head>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="dynamic_component_registry_component_form"/>
+            <uiComponent name="dynamic_component_form"/>
         </referenceContainer>
     </body>
 </page>

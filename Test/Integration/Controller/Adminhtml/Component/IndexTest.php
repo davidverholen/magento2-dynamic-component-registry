@@ -1,15 +1,4 @@
 <?php
-/**
- * IndexTest.php
- *
- * PHP Version 5
- *
- * @category magento2
- * @package  magento2
- * @author   David Verholen <david@verholen.com>
- * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
- * @link     http://github.com/davidverholen
- */
 
 namespace DavidVerholen\DynamicComponentRegistry\Test\Integration\Controller\Adminhtml\Component;
 
@@ -19,14 +8,6 @@ use Magento\TestFramework\ObjectManager;
 use Magento\TestFramework\TestCase\AbstractBackendController;
 
 /**
- * Class IndexTest
- *
- * @category           magento2
- * @package            DavidVerholen\DynamicComponentRegistry\Test\Integration\Controller\Adminhtml\Component
- * @author             David Verholen <david@verholen.com>
- * @license            http://opensource.org/licenses/OSL-3.0 OSL-3.0
- * @link               http://github.com/davidverholen
- *
  * @magentoAppArea     adminhtml
  * @magentoDbIsolation enabled
  */
@@ -47,5 +28,14 @@ class IndexTest extends AbstractBackendController
         /** @var Index $indexAction */
         $indexAction = $this->_objectManager->create($this->action);
         $this->assertInstanceOf(Page::class, $indexAction->execute());
+    }
+
+    public function testAllRequiredGridColumnsAreShown()
+    {
+        $this->dispatch($this->uri);
+        $this->assertContains(__('Name')->__toString(), $this->getResponse()->getBody());
+        $this->assertContains(__('Type')->__toString(), $this->getResponse()->getBody());
+        $this->assertContains(__('Path')->__toString(), $this->getResponse()->getBody());
+        $this->assertContains(__('Status')->__toString(), $this->getResponse()->getBody());
     }
 }

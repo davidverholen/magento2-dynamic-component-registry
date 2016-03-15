@@ -2,11 +2,32 @@
 
 namespace DavidVerholen\DynamicComponentRegistry\Controller\Adminhtml;
 
+use DavidVerholen\DynamicComponentRegistry\Model\Component\Builder;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
 
 abstract class Component extends Action
 {
+    /**
+     * @var Builder
+     */
+    protected $componentBuilder;
+
+    /**
+     * Component constructor.
+     *
+     * @param Action\Context $context
+     * @param Builder        $componentBuilder
+     */
+    public function __construct(
+        Action\Context $context,
+        Builder $componentBuilder
+    ) {
+        parent::__construct($context);
+        $this->componentBuilder = $componentBuilder;
+    }
+
+
     /**
      * Init page
      *

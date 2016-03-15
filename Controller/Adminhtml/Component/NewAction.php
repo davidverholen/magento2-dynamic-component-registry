@@ -6,7 +6,7 @@ use DavidVerholen\DynamicComponentRegistry\Controller\Adminhtml\Component;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 
-class Index extends Component
+class NewAction extends Component
 {
 
     /**
@@ -17,10 +17,9 @@ class Index extends Component
      */
     public function execute()
     {
-        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
-        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $this->initPage($resultPage)->getConfig()->getTitle()->prepend(__('Dynamic Components'));
+        /** @var \Magento\Framework\Controller\Result\Forward $resultForward */
+        $resultForward = $this->resultFactory->create(ResultFactory::TYPE_FORWARD);
 
-        return $resultPage;
+        return $resultForward->forward('edit');
     }
 }
