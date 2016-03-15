@@ -2,6 +2,7 @@
 
 namespace DavidVerholen\DynamicComponentRegistry\Controller\Adminhtml;
 
+use DavidVerholen\DynamicComponentRegistry\Api\ComponentRepositoryInterface;
 use DavidVerholen\DynamicComponentRegistry\Model\Component\Builder;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
@@ -14,17 +15,25 @@ abstract class Component extends Action
     protected $componentBuilder;
 
     /**
+     * @var ComponentRepositoryInterface
+     */
+    protected $componentRepository;
+
+    /**
      * Component constructor.
      *
-     * @param Action\Context $context
-     * @param Builder        $componentBuilder
+     * @param Action\Context               $context
+     * @param Builder                      $componentBuilder
+     * @param ComponentRepositoryInterface $componentRepository
      */
     public function __construct(
         Action\Context $context,
-        Builder $componentBuilder
+        Builder $componentBuilder,
+        ComponentRepositoryInterface $componentRepository
     ) {
         parent::__construct($context);
         $this->componentBuilder = $componentBuilder;
+        $this->componentRepository = $componentRepository;
     }
 
 
