@@ -25,6 +25,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="submit_url" xsi:type="url" path="dynamic_component_registry/component/save"/>
+                    <item name="validate_url" xsi:type="url" path="dynamic_component_registry/component/validate"/>
                 </item>
             </argument>
         </argument>

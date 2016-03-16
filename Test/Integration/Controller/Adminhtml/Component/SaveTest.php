@@ -2,6 +2,7 @@
 
 namespace DavidVerholen\DynamicComponentRegistry\Test\Integration\Controller\Adminhtml\Component;
 
+use DavidVerholen\DynamicComponentRegistry\Api\Data\ComponentInterface;
 use DavidVerholen\DynamicComponentRegistry\Controller\Adminhtml\Component\Save;
 use DavidVerholen\DynamicComponentRegistry\Model\Component;
 use Magento\Framework\Message\MessageInterface;
@@ -17,7 +18,8 @@ use Magento\TestFramework\TestCase\AbstractBackendController;
  */
 class SaveTest extends AbstractBackendController
 {
-    const FIXTURE_ID = 1;
+    const FIXTURE_NAME = 'VendorName_ModuleName';
+    const FIXTURE_PATH = '/path/to/module';
 
     protected $uri = 'backend/dynamic_component_registry/component/save';
     protected $resource = 'DavidVerholen_DynamicComponentRegistry::dynamic_component_registry_component';
@@ -29,12 +31,14 @@ class SaveTest extends AbstractBackendController
     public function testSaveAction()
     {
         /** @var Component $component */
-        $component = ObjectManager::getInstance()->create(Component::class)->load(static::FIXTURE_ID);
+        $component = ObjectManager::getInstance()
+            ->create(Component::class)
+            ->load(static::FIXTURE_NAME, ComponentInterface::NAME);
 
-        $newName = 'VendorName_NewModuleName';
-        $this->getRequest()->setPostValue(['general' => [
-            'name' => $newName
-        ]]);
+        $newPath = '/new/path/to/module';
+        $component->setPath($newPath);
+
+        $this->getRequest()->setPostValue(['general' => $component->getData()]);
 
         $this->dispatch(implode('/', [$this->uri, 'id', $component->getId()]));
         $this->assertRedirect($this->stringStartsWith(
@@ -47,9 +51,9 @@ class SaveTest extends AbstractBackendController
 
         /** @var Component $newComponent */
         $newComponent = Bootstrap::getObjectManager()->create(Component::class);
-        $newComponent->load(static::FIXTURE_ID);
+        $newComponent->load(static::FIXTURE_NAME, ComponentInterface::NAME);
 
-        $this->assertEquals($newName, $newComponent->getName());
+        $this->assertEquals($newPath, $newComponent->getPath());
     }
 
     public static function componentFixture()
@@ -57,11 +61,10 @@ class SaveTest extends AbstractBackendController
         /** @var Component $component */
         $component = ObjectManager::getInstance()->create(Component::class);
         $component
-            ->setId(static::FIXTURE_ID)
-            ->setName('VendorName_ModuleName')
+            ->setName(static::FIXTURE_NAME)
             ->setStatus(Component::STATUS_ENABLED)
             ->setType(Component::TYPE_MODULE)
-            ->setPath('/path/to/module');
+            ->setPath(static::FIXTURE_PATH);
 
         $component->save();
     }
