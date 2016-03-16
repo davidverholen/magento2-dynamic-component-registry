@@ -58,6 +58,7 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="placeholder" xsi:type="string">VendorName_ModuleName</item>
+                    <item name="source" xsi:type="string">component</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                         <item name="validate-xml-identifier" xsi:type="boolean">true</item>
@@ -73,6 +74,7 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="placeholder" xsi:type="string">/path/to/your/component</item>
+                    <item name="source" xsi:type="string">component</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
@@ -87,6 +89,7 @@
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">select</item>
                     <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">component</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
@@ -101,6 +104,7 @@
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">select</item>
                     <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">component</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
