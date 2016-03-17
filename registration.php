@@ -13,46 +13,48 @@ ComponentRegistrar::register(
     __DIR__
 );
 
-$configFilePath = implode(DIRECTORY_SEPARATOR, [
-    BP,
-    DirectoryList::VAR_DIR,
-    ConfigFactory::CONFIG_DIR,
-    ConfigFactory::CONFIG_FILE_NAME
-]);
+if (defined('BP')) {
+    $configFilePath = implode(DIRECTORY_SEPARATOR, [
+        BP,
+        DirectoryList::VAR_DIR,
+        ConfigFactory::CONFIG_DIR,
+        ConfigFactory::CONFIG_FILE_NAME
+    ]);
 
-if (file_exists($configFilePath)) {
-    AnnotationRegistry::registerLoader('class_exists');
+    if (file_exists($configFilePath)) {
+        AnnotationRegistry::registerLoader('class_exists');
+        /** @var DynamicComponentsConfig $config */
+        $config = SerializerBuilder::create()->build()->deserialize(
+            file_get_contents($configFilePath),
+            DynamicComponentsConfig::class,
+            ConfigFactory::CONFIG_FORMAT
+        );
 
-    /** @var DynamicComponentsConfig $config */
-    $config = SerializerBuilder::create()->build()->deserialize(
-        file_get_contents($configFilePath),
-        DynamicComponentsConfig::class,
-        ConfigFactory::CONFIG_FORMAT
-    );
+        $autoloaders = spl_autoload_functions();
+        /** @var \Composer\Autoload\ClassLoader $autoloader */
+        $autoloader = null;
+        if (isset($autoloaders[0])
+            && isset($autoloaders[0][0])
+            && $autoloaders[0][0] instanceof \Composer\Autoload\ClassLoader
+        ) {
+            $autoloader = $autoloaders[0][0];
+        }
 
-    $autoloaders = spl_autoload_functions();
-    /** @var \Composer\Autoload\ClassLoader $autoloader */
-    $autoloader = null;
-    if (isset($autoloaders[0])
-        && isset($autoloaders[0][0])
-        && $autoloaders[0][0] instanceof \Composer\Autoload\ClassLoader
-    ) {
-        $autoloader = $autoloaders[0][0];
-    }
+        /** @var ComponentConfig $componentConfig */
+        foreach ($config->getComponents() as $componentConfig) {
+            if (null !== $autoloader) {
+                $autoloader->addPsr4(
+                    $componentConfig->getPsr4Prefix(),
+                    $componentConfig->getPath()
+                );
+            }
 
-    /** @var ComponentConfig $componentConfig */
-    foreach ($config->getComponents() as $componentConfig) {
-        if (null !== $autoloader) {
-            $autoloader->addPsr4(
-                $componentConfig->getPsr4Prefix(),
+            ComponentRegistrar::register(
+                $componentConfig->getType(),
+                $componentConfig->getName(),
                 $componentConfig->getPath()
             );
         }
-
-        ComponentRegistrar::register(
-            $componentConfig->getType(),
-            $componentConfig->getName(),
-            $componentConfig->getPath()
-        );
     }
 }
+
