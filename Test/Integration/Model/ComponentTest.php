@@ -32,9 +32,9 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
     {
         $component = $this->createComponent();
         $this->assertEquals('name', $component->setName('name')->getName());
-        $this->assertEquals('type', $component->setType('type')->getType());
+        $this->assertEquals(3, $component->setType(3)->getType());
         $this->assertEquals('path', $component->setPath('path')->getPath());
-        $this->assertEquals('status', $component->setStatus('status')->getStatus());
+        $this->assertEquals(0, $component->setStatus(0)->getStatus());
     }
 
     /**

@@ -25,6 +25,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="submit_url" xsi:type="url" path="dynamic_component_registry/component/save"/>
+                    <item name="validate_url" xsi:type="url" path="dynamic_component_registry/component/validate"/>
                 </item>
             </argument>
         </argument>
@@ -57,6 +58,7 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="placeholder" xsi:type="string">VendorName_ModuleName</item>
+                    <item name="source" xsi:type="string">component</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                         <item name="validate-xml-identifier" xsi:type="boolean">true</item>
@@ -71,7 +73,23 @@
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">input</item>
-                    <item name="placeholder" xsi:type="string">/path/to/your/component</item>
+                    <item name="placeholder" xsi:type="string">../../relative/path/to/your/component</item>
+                    <item name="source" xsi:type="string">component</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="psr4_prefix">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">PSR-4 Prefix</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="placeholder" xsi:type="string">Namespace\Prefix\</item>
+                    <item name="source" xsi:type="string">component</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
@@ -86,6 +104,7 @@
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">select</item>
                     <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">component</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
@@ -100,6 +119,7 @@
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">select</item>
                     <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">component</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>

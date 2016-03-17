@@ -20,4 +20,9 @@
             <argument name="resourceModel" xsi:type="string">DavidVerholen\DynamicComponentRegistry\Model\ResourceModel\Component</argument>
         </arguments>
     </virtualType>
+    <type name="DavidVerholen\DynamicComponentRegistry\Model\ResourceModel\Component\Collection">
+        <arguments>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\Type\Config</argument>
+        </arguments>
+    </type>
 </config>

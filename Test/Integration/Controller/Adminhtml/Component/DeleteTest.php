@@ -3,57 +3,46 @@
 namespace DavidVerholen\DynamicComponentRegistry\Test\Integration\Controller\Adminhtml\Component;
 
 use DavidVerholen\DynamicComponentRegistry\Api\Data\ComponentInterface;
-use DavidVerholen\DynamicComponentRegistry\Controller\Adminhtml\Component\Save;
+use DavidVerholen\DynamicComponentRegistry\Controller\Adminhtml\Component\Delete;
 use DavidVerholen\DynamicComponentRegistry\Model\Component;
 use Magento\Framework\Message\MessageInterface;
-use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\ObjectManager;
 use Magento\TestFramework\TestCase\AbstractBackendController;
 
-/**
- * Class EditTest
- * @package            DavidVerholen\DynamicComponentRegistry\Test\Integration\Controller\Adminhtml\Component
- *
- * @magentoAppArea     adminhtml
- */
-class SaveTest extends AbstractBackendController
+class DeleteTest extends AbstractBackendController
 {
     const FIXTURE_NAME = 'VendorName_ModuleName';
     const FIXTURE_PATH = '/path/to/module';
 
-    protected $uri = 'backend/dynamic_component_registry/component/save';
+    protected $uri = 'backend/dynamic_component_registry/component/delete';
     protected $resource = 'DavidVerholen_DynamicComponentRegistry::dynamic_component_registry_component';
-    protected $action = Save::class;
+    protected $action = Delete::class;
 
     /**
      * @magentoDataFixture componentFixture
      */
-    public function testSaveAction()
+    public function testDeleteAction()
     {
         /** @var Component $component */
         $component = ObjectManager::getInstance()
             ->create(Component::class)
             ->load(static::FIXTURE_NAME, ComponentInterface::NAME);
 
-        $newPath = '/new/path/to/module';
-        $component->setPath($newPath);
-
-        $this->getRequest()->setPostValue(['general' => $component->getData()]);
-
         $this->dispatch(implode('/', [$this->uri, 'id', $component->getId()]));
         $this->assertRedirect($this->stringStartsWith(
             'http://localhost/index.php/backend/dynamic_component_registry/component/index/'
         ));
+
         $this->assertSessionMessages(
-            $this->contains('You saved the Component.'),
+            $this->contains('You deleted the Component.'),
             MessageInterface::TYPE_SUCCESS
         );
 
-        /** @var Component $newComponent */
-        $newComponent = Bootstrap::getObjectManager()->create(Component::class);
-        $newComponent->load(static::FIXTURE_NAME, ComponentInterface::NAME);
+        /** @var Component $deletedComponent */
+        $deletedComponent = ObjectManager::getInstance()->create(Component::class);
+        $deletedComponent->load($component->getId());
 
-        $this->assertEquals($newPath, $newComponent->getPath());
+        $this->assertNull($deletedComponent->getId());
     }
 
     public static function componentFixture()

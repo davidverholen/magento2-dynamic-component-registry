@@ -43,6 +43,12 @@ class InstallSchema implements InstallSchemaInterface
             ['nullable' => false],
             'Component Path'
         )->addColumn(
+            ComponentInterface::PSR4_PREFIX,
+            Table::TYPE_TEXT,
+            255,
+            ['nullable' => false],
+            'Component PSR-4 Prefix'
+        )->addColumn(
             ComponentInterface::TYPE,
             Table::TYPE_SMALLINT,
             null,
