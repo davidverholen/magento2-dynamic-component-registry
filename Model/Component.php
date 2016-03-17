@@ -7,6 +7,10 @@ use Magento\Framework\Model\AbstractModel;
 
 class Component extends AbstractModel implements ComponentInterface
 {
+    protected $_eventPrefix = 'dynamic_component';
+
+    protected $_eventObject = 'component';
+
     const TYPE_MODULE = 1;
     const TYPE_LIBRARY = 2;
     const TYPE_THEME = 3;
@@ -57,7 +61,7 @@ class Component extends AbstractModel implements ComponentInterface
      */
     public function getType()
     {
-        return $this->getData(ComponentInterface::TYPE);
+        return (int)$this->getData(ComponentInterface::TYPE);
     }
 
     /**
@@ -69,11 +73,19 @@ class Component extends AbstractModel implements ComponentInterface
     }
 
     /**
+     * @return string
+     */
+    public function getPsr4Prefix()
+    {
+        return $this->getData(ComponentInterface::PSR4_PREFIX);
+    }
+
+    /**
      * @return integer
      */
     public function getStatus()
     {
-        return $this->getData(ComponentInterface::STATUS);
+        return (int)$this->getData(ComponentInterface::STATUS);
     }
 
     /**
@@ -104,6 +116,16 @@ class Component extends AbstractModel implements ComponentInterface
     public function setPath($path)
     {
         return $this->setData(ComponentInterface::PATH, $path);
+    }
+
+    /**
+     * @param $psr4Prefix
+     *
+     * @return ComponentInterface
+     */
+    public function setPsr4Prefix($psr4Prefix)
+    {
+        return $this->setData(ComponentInterface::PSR4_PREFIX, $psr4Prefix);
     }
 
     /**

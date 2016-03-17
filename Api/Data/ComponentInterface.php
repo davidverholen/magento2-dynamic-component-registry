@@ -8,6 +8,7 @@ interface ComponentInterface
     const NAME = 'name';
     const TYPE = 'type';
     const PATH = 'path';
+    const PSR4_PREFIX = 'psr4_prefix';
     const STATUS = 'status';
 
     /**
@@ -29,6 +30,11 @@ interface ComponentInterface
      * @return string
      */
     public function getPath();
+
+    /**
+     * @return string
+     */
+    public function getPsr4Prefix();
 
     /**
      * @return integer
@@ -55,6 +61,13 @@ interface ComponentInterface
      * @return ComponentInterface
      */
     public function setPath($path);
+
+    /**
+     * @param $psr4Prefix
+     *
+     * @return ComponentInterface
+     */
+    public function setPsr4Prefix($psr4Prefix);
 
     /**
      * @param $status

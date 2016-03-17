@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <event name="core_collection_abstract_load_before">
-        <observer name="loadDynamicComponents"
-                  instance="DavidVerholen\DynamicComponentRegistry\Observer\DynamicComponentRegistrar"
+    <event name="dynamic_component_save_after">
+        <observer name="updateDynamicComponentsConfig"
+                  instance="DavidVerholen\DynamicComponentRegistry\Observer\ConfigDumper"
                   shared="true"/>
     </event>
 </config>

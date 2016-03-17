@@ -62,7 +62,7 @@ class SaveTest extends AbstractBackendController
         $component = ObjectManager::getInstance()->create(Component::class);
         $component
             ->setName(static::FIXTURE_NAME)
-            ->setStatus(Component::STATUS_ENABLED)
+            ->setStatus(Component::STATUS_DISABLED)
             ->setType(Component::TYPE_MODULE)
             ->setPath(static::FIXTURE_PATH);
 
