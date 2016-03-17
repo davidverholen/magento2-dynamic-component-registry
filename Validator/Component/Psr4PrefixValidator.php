@@ -38,26 +38,27 @@ class Psr4PrefixValidator extends AbstractValidator
     {
         $this->validateHasTrailingSlash($component->getPsr4Prefix());
         $this->validateHasNoLeadingSlash($component->getPsr4Prefix());
+        $this->validateHasNoDoubleBackslash($component->getPsr4Prefix());
     }
 
-    /**
-     * validateHasTrailingSlash
-     *
-     * @param $psr4Prefix
-     *
-     * @return void
-     */
     protected function validateHasTrailingSlash($psr4Prefix)
     {
-        if('\\' !== substr($psr4Prefix, -1)) {
-            $this->addError(__('PSR-4 Namespace Prefix must have a trailing \'\\\''));
+        if ('\\' !== substr($psr4Prefix, -1)) {
+            $this->addError(__('PSR-4 Namespace Prefix must have a trailing \'\\\' (example: \'Vendor\\Namespace\\\')'));
         }
     }
 
     protected function validateHasNoLeadingSlash($psr4Prefix)
     {
-        if('\\' === substr($psr4Prefix, 0, 1)) {
-            $this->addError(__('PSR-4 Namespace Prefix must not have a leading \'\\\''));
+        if ('\\' === substr($psr4Prefix, 0, 1)) {
+            $this->addError(__('PSR-4 Namespace Prefix must not have a leading \'\\\' (example: \'Vendor\\Namespace\\\')'));
+        }
+    }
+
+    protected function validateHasNoDoubleBackslash($psr4Prefix)
+    {
+        if (false !== strpos($psr4Prefix, '\\\\')) {
+            $this->addError(__('PSR-4 Namespace Prefix must not have escaped \'\\\' (example: \'Vendor\\Namespace\\\')'));
         }
     }
 }

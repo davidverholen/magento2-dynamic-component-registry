@@ -36,6 +36,16 @@ class ComponentPathValidator extends AbstractValidator
      */
     protected function execute(ComponentInterface $component)
     {
-        // TODO: Implement execute() method.
+        $this->validateThePathExists($component->getPath());
+    }
+
+    protected function validateThePathExists($path)
+    {
+        if (false === file_exists($this->getNormalizedPath($path))) {
+            $this->addError(__(sprintf(
+                'the path does not exist: \'%s\'. The path must be relative to the Magento root dir',
+                $this->getNormalizedPath($path)
+            )));
+        }
     }
 }

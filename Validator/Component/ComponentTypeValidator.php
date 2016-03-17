@@ -14,6 +14,7 @@
 namespace DavidVerholen\DynamicComponentRegistry\Validator\Component;
 
 use DavidVerholen\DynamicComponentRegistry\Api\Data\ComponentInterface;
+use DavidVerholen\DynamicComponentRegistry\Model\Component;
 
 /**
  * Class ComponentTypeValidator
@@ -36,6 +37,26 @@ class ComponentTypeValidator extends AbstractValidator
      */
     protected function execute(ComponentInterface $component)
     {
-        // TODO: Implement execute() method.
+        switch ($component->getType()) {
+            case Component::TYPE_MODULE:
+                $this->validateTheModuleConfigIsPresent($component->getPath());
+                break;
+            case Component::TYPE_LANGUAGE:
+                /** @TODO add validation for language pack */
+            case Component::TYPE_THEME:
+                /** @TODO add validation for theme */
+            case Component::TYPE_LIBRARY:
+                /** @TODO add validation for library */
+        }
+    }
+
+    protected function validateTheModuleConfigIsPresent($path)
+    {
+        if (false === file_exists($this->getModuleConfigPath($path))) {
+            $this->addError(__(sprintf(
+                'Module Config not found: \'%s\'',
+                $this->getModuleConfigPath($path)
+            )));
+        }
     }
 }

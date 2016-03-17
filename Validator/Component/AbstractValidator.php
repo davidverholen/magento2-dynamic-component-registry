@@ -96,4 +96,59 @@ abstract class AbstractValidator implements ValidatorInterface
     {
         $this->errors = [];
     }
+
+    /**
+     * getNormalizedPath
+     *
+     * @param $path
+     *
+     * @return string
+     */
+    protected function getNormalizedPath($path)
+    {
+        return $this->normalizePath(implode(DIRECTORY_SEPARATOR, [BP, $path]));
+    }
+
+    /**
+     * getModuleConfigPath
+     *
+     * @param $path
+     *
+     * @return string
+     */
+    protected function getModuleConfigPath($path)
+    {
+        return $this->normalizePath(implode(DIRECTORY_SEPARATOR, [
+            BP,
+            $path,
+            'etc',
+            'module.xml'
+        ]));
+    }
+
+    /**
+     * normalize_path
+     *
+     * @param $path
+     *
+     * @return string
+     * @throws \Exception
+     */
+    protected function normalizePath($path) {
+        $parts = explode('/', $path);
+        $result = [];
+
+        foreach ($parts as $part) {
+            if ('..' === $part) {
+                if (!count($result) || ($result[count($result) - 1] == '..')) {
+                    $result[] = $part;
+                } else {
+                    array_pop($result);
+                }
+            } elseif ('.' !== $part) {
+                $result[] = $part;
+            }
+        }
+        return implode('/', $result);
+    }
 }
