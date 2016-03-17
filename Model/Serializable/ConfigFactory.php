@@ -80,6 +80,10 @@ class ConfigFactory
 
         /** @var Component $component */
         foreach ($this->getComponentCollection() as $component) {
+            if ($component->getStatus() !== Component::STATUS_ENABLED) {
+                continue;
+            }
+
             /** @var ComponentConfig $componentConfig */
             $componentConfig = $this->componentConfigFactory->create();
             $componentConfig->setName($component->getName());
