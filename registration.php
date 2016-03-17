@@ -23,8 +23,8 @@ if (defined('BP')) {
 
     if (file_exists($configFilePath)) {
         AnnotationRegistry::registerLoader('class_exists');
-        /** @var DynamicComponentsConfig $config */
-        $config = SerializerBuilder::create()->build()->deserialize(
+        /** @var DynamicComponentsConfig $dynamicComponentsConfig */
+        $dynamicComponentsConfig = SerializerBuilder::create()->build()->deserialize(
             file_get_contents($configFilePath),
             DynamicComponentsConfig::class,
             ConfigFactory::CONFIG_FORMAT
@@ -40,7 +40,7 @@ if (defined('BP')) {
         });
 
         /** @var ComponentConfig $componentConfig */
-        foreach ($config->getComponents() as $componentConfig) {
+        foreach ($dynamicComponentsConfig->getComponents() as $componentConfig) {
             if (null !== $composerAutoloader) {
                 $composerAutoloader->addPsr4(
                     $componentConfig->getPsr4Prefix(),
