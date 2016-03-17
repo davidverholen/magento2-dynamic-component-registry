@@ -20,6 +20,7 @@ use DavidVerholen\DynamicComponentRegistry\Serializable\ComponentConfig;
 use DavidVerholen\DynamicComponentRegistry\Serializable\ComponentConfigFactory;
 use DavidVerholen\DynamicComponentRegistry\Serializable\DynamicComponentsConfig;
 use DavidVerholen\DynamicComponentRegistry\Serializable\DynamicComponentsConfigFactory;
+use Magento\Framework\Module\Status;
 
 /**
  * Class ConfigFactory
@@ -44,12 +45,17 @@ class ConfigFactory
     /**
      * @var DynamicComponentsConfigFactory
      */
-    protected $dynamicComponentsConfigFactory;
+    private $dynamicComponentsConfigFactory;
 
     /**
      * @var ComponentConfigFactory
      */
-    protected $componentConfigFactory;
+    private $componentConfigFactory;
+
+    /**
+     * @var Status
+     */
+    private $moduleStatus;
 
     /**
      * ConfigFactory constructor.
@@ -57,15 +63,18 @@ class ConfigFactory
      * @param CollectionFactory $componentCollectionFactory
      * @param DynamicComponentsConfigFactory $dynamicComponentsConfigFactory
      * @param ComponentConfigFactory $componentConfigFactory
+     * @param Status $moduleStatus
      */
     public function __construct(
         CollectionFactory $componentCollectionFactory,
         DynamicComponentsConfigFactory $dynamicComponentsConfigFactory,
-        ComponentConfigFactory $componentConfigFactory
+        ComponentConfigFactory $componentConfigFactory,
+        Status $moduleStatus
     ) {
         $this->componentCollectionFactory = $componentCollectionFactory;
         $this->dynamicComponentsConfigFactory = $dynamicComponentsConfigFactory;
         $this->componentConfigFactory = $componentConfigFactory;
+        $this->moduleStatus = $moduleStatus;
     }
 
     /**
@@ -80,18 +89,21 @@ class ConfigFactory
 
         /** @var Component $component */
         foreach ($this->getComponentCollection() as $component) {
-            if ($component->getStatus() !== Component::STATUS_ENABLED) {
-                continue;
+            if ($component->getStatus() === Component::STATUS_ENABLED) {
+                /** @var ComponentConfig $componentConfig */
+                $componentConfig = $this->componentConfigFactory->create();
+                $componentConfig->setName($component->getName());
+                $componentConfig->setPath($component->getPath());
+                $componentConfig->setPsr4Prefix($component->getPsr4Prefix());
+                $componentConfig->setType(Component\TypeMapper::map($component->getType()));
+
+                $dynamicComponentConfig->addComponent($componentConfig);
+            } else if ($component->getType() === Component::TYPE_MODULE) {
+                $this->moduleStatus->setIsEnabled(
+                    false,
+                    [$component->getName()]
+                );
             }
-
-            /** @var ComponentConfig $componentConfig */
-            $componentConfig = $this->componentConfigFactory->create();
-            $componentConfig->setName($component->getName());
-            $componentConfig->setPath($component->getPath());
-            $componentConfig->setPsr4Prefix($component->getPsr4Prefix());
-            $componentConfig->setType(Component\TypeMapper::map($component->getType()));
-
-            $dynamicComponentConfig->addComponent($componentConfig);
         }
 
         return $dynamicComponentConfig;
