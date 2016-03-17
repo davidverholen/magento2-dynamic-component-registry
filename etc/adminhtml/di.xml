@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="DavidVerholen\DynamicComponentRegistry\Validator\Component\ValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="component_name_validator" xsi:type="object">DavidVerholen\DynamicComponentRegistry\Validator\Component\ComponentNameValidator</item>
+                <item name="component_path_validator" xsi:type="object">DavidVerholen\DynamicComponentRegistry\Validator\Component\ComponentPathValidator</item>
+                <item name="component_type_validator" xsi:type="object">DavidVerholen\DynamicComponentRegistry\Validator\Component\ComponentTypeValidator</item>
+                <item name="psr4_prefix_validator" xsi:type="object">DavidVerholen\DynamicComponentRegistry\Validator\Component\Psr4PrefixValidator</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
