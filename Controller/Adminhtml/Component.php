@@ -46,7 +46,7 @@ abstract class Component extends Action
      */
     protected function initPage(Page $resultPage)
     {
-        $resultPage->setActiveMenu('DavidVerholen_Teaser::teaser_group')
+        $resultPage->setActiveMenu('DavidVerholen_DynamicComponentRegistry::dynamic_component_registry_component')
             ->addBreadcrumb(__('Dynamic Component Registry'), __('Dynamic Component Registry'));
 
         return $resultPage;

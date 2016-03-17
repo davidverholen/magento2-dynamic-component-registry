@@ -5,7 +5,7 @@
             <item name="provider" xsi:type="string">dynamic_component_listing.dynamic_component_listing_data_source</item>
             <item name="deps" xsi:type="string">dynamic_component_listing.dynamic_component_listing_data_source</item>
         </item>
-        <item name="spinner" xsi:type="string">teaser_group_columns</item>
+        <item name="spinner" xsi:type="string">dynamic_component_columns</item>
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
                 <item name="name" xsi:type="string">add</item>
@@ -29,12 +29,12 @@
             </argument>
         </argument>
     </dataSource>
-    <columns name="teaser_group_columns">
+    <columns name="dynamic_component_columns">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="childDefaults" xsi:type="array">
                     <item name="fieldAction" xsi:type="array">
-                        <item name="provider" xsi:type="string">dynamic_component_listing.dynamic_component_listing.teaser_group_columns.actions</item>
+                        <item name="provider" xsi:type="string">dynamic_component_listing.dynamic_component_listing.dynamic_component_columns.actions</item>
                         <item name="target" xsi:type="string">applyAction</item>
                         <item name="params" xsi:type="array">
                             <item name="0" xsi:type="string">edit</item>
