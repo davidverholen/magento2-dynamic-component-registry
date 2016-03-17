@@ -6,4 +6,9 @@
                   instance="DavidVerholen\DynamicComponentRegistry\Observer\ConfigDumper"
                   shared="true"/>
     </event>
+    <event name="dynamic_component_delete_after">
+        <observer name="updateDynamicComponentsConfig"
+                  instance="DavidVerholen\DynamicComponentRegistry\Observer\ConfigDumper"
+                  shared="true"/>
+    </event>
 </config>

@@ -56,7 +56,7 @@ class ComponentNameValidator extends AbstractValidator
         $moduleConfigFile = $this->getModuleConfigPath($component->getPath());
         if (file_exists($moduleConfigFile)) {
             $moduleConfig = simplexml_load_file($moduleConfigFile);
-            if ($moduleConfig->{'module'}['name'] !== $component->getName()) {
+            if ((string)$moduleConfig->{'module'}['name'] !== $component->getName()) {
                 $this->addError(__(sprintf(
                     'The Module Name does not Match the Configuration: \'%s\'',
                     $moduleConfig->{'module'}['name']
