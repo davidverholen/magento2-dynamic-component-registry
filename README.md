@@ -13,7 +13,7 @@ The Idea behind this module is to make it more easy to develop Magento2 Modules.
 
 ### Example
 - Name: Vendor_Module
-- Path: . ./. ./mymodules/ModuleDir
+- Path: ../../mymodules/ModuleDir
 - PSR-4 Prefix: Vendor\ModuleName\
 
 
