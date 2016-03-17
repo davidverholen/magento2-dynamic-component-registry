@@ -4,7 +4,7 @@ The Idea behind this module is to make it more easy to develop Magento2 Modules.
 
 ### How To Use
 
-- In the Magento Backend got to System -> Dynamic Components
+- In the Magento Backend go to System -> Dynamic Components
 - Add a new Component
 - The Name has to Match the configured Component Name (For a Module this is defined in the etc/module.xml
 - The path has to be relative to the Magento2 root directory
