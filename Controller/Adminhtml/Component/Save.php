@@ -39,7 +39,7 @@ class Save extends Component
 
         try {
             $this->componentRepository->save($component);
-            $this->messageManager->addSuccess(__('You saved the Component.'));
+            $this->messageManager->addSuccess(__('You saved the Component. Run \'bin/magento setup:upgrade\' to update the module configuration'));
             $this->_session->setFormData(false);
         } catch (\Exception $e) {
             $this->messageManager->addError($e->getMessage());

@@ -38,7 +38,7 @@ if (defined('BP')) {
             printf('<h3>Dynamic Component Registry - Broken Configuration File</h3>');
             printf('<p>error while reading Dynamic Components Config: <b>%s</b></p>', $e->getMessage());
             printf('<p>1. Delete <b>\'%s\'</b> to get the Page running again<br/>', $configFilePath);
-            printf('2. You also may have to deactivate dynamically loaded Modules by removing the entry from <b>\'%s\'</b><br/>', implode(DIRECTORY_SEPARATOR, [BP, 'app', 'etc', 'config.php']));
+            printf('2. run <b>bin/magento setup:upgrade</b><br/>');
             printf('3. Afterwards save any Dynamic Component in Backend to recreate the Configuration File</p>');
             exit;
         }
