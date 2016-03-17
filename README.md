@@ -7,15 +7,15 @@ The Idea behind this module is to make it more easy to develop Magento2 Modules.
 - In the Magento Backend got to System -> Dynamic Components
 - Add a new Component
 - The Name has to Match the configured Component Name (For a Module this is defined in the etc/module.xml
-- The path has to be relativ to the Magento2 root directory
+- The path has to be relative to the Magento2 root directory
 - The Namespace prefix must have a trailing slash and must not have a leading slash
 - After saving the component you might have to execute bin/magento setup:upgrade or bin/magento module:enable Vendor_Module (or disable)
 
 ### Example
 - Name: Vendor_Module
-- Path: ../../mymodules/ModuleDir
+- Path: ../../myModules/ModuleDir
 - PSR-4 Prefix: Vendor\ModuleName\
 
 
 ### Known Issues
-- After saving I have Problems with js in backend -> clearing brwoser cache and maybe also local storage helps
+- After saving I have Problems with js in backend -> clearing browser cache and maybe also local storage helps
