@@ -95,7 +95,7 @@ class ConfigDumper implements ObserverInterface
     /**
      * dumpConfigToFile
      *
-     * @return int
+     * @return boolean
      * @throws \Magento\Framework\Exception\FileSystemException
      */
     protected function dumpConfigToFile()
@@ -134,21 +134,9 @@ class ConfigDumper implements ObserverInterface
     protected function getConfigFilePath()
     {
         return implode(DIRECTORY_SEPARATOR, [
-            $this->getConfigDirPath(),
+            $this->directoryList->getPath(DirectoryList::VAR_DIR),
+            ConfigFactory::CONFIG_DIR,
             ConfigFactory::CONFIG_FILE_NAME
-        ]);
-    }
-
-    /**
-     * getConfigDirPath
-     *
-     * @return string
-     */
-    protected function getConfigDirPath()
-    {
-        return implode(DIRECTORY_SEPARATOR, [
-            $this->directoryList->getPath('var'),
-            ConfigFactory::CONFIG_DIR
         ]);
     }
 
