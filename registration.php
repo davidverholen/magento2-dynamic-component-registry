@@ -30,20 +30,19 @@ if (defined('BP')) {
             ConfigFactory::CONFIG_FORMAT
         );
 
-        $autoloaders = spl_autoload_functions();
-        /** @var \Composer\Autoload\ClassLoader $autoloader */
-        $autoloader = null;
-        if (isset($autoloaders[0])
-            && isset($autoloaders[0][0])
-            && $autoloaders[0][0] instanceof \Composer\Autoload\ClassLoader
-        ) {
-            $autoloader = $autoloaders[0][0];
-        }
+        /** @var \Composer\Autoload\ClassLoader $composerAutoloader */
+        $composerAutoloader = null;
+        $registeredAutoloaders = spl_autoload_functions();
+        array_walk_recursive($registeredAutoloaders, function ($value) use (&$composerAutoloader) {
+            if ($value instanceof \Composer\Autoload\ClassLoader) {
+                $composerAutoloader = $value;
+            }
+        });
 
         /** @var ComponentConfig $componentConfig */
         foreach ($config->getComponents() as $componentConfig) {
-            if (null !== $autoloader) {
-                $autoloader->addPsr4(
+            if (null !== $composerAutoloader) {
+                $composerAutoloader->addPsr4(
                     $componentConfig->getPsr4Prefix(),
                     $componentConfig->getPath()
                 );
