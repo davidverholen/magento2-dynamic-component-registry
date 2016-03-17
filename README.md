@@ -15,7 +15,3 @@ The Idea behind this module is to make it more easy to develop Magento2 Modules.
 - Name: Vendor_Module
 - Path: ../../myModules/ModuleDir
 - PSR-4 Prefix: Vendor\ModuleName\
-
-
-### Known Issues
-- After saving I have Problems with js in backend -> clearing browser cache and maybe also local storage helps
