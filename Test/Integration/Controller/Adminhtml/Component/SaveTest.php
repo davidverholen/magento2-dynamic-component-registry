@@ -20,6 +20,7 @@ class SaveTest extends AbstractBackendController
 {
     const FIXTURE_NAME = 'VendorName_ModuleName';
     const FIXTURE_PATH = '/path/to/module';
+    const FIXTURE_PSR4_PREFIX = 'Vendor\\Namespace\\';
 
     protected $uri = 'backend/dynamic_component_registry/component/save';
     protected $resource = 'DavidVerholen_DynamicComponentRegistry::dynamic_component_registry_component';
@@ -62,7 +63,8 @@ class SaveTest extends AbstractBackendController
         $component = ObjectManager::getInstance()->create(Component::class);
         $component
             ->setName(static::FIXTURE_NAME)
-            ->setStatus(Component::STATUS_DISABLED)
+            ->setStatus(Component::STATUS_ENABLED)
+            ->setPsr4Prefix(static::FIXTURE_PSR4_PREFIX)
             ->setType(Component::TYPE_MODULE)
             ->setPath(static::FIXTURE_PATH);
 
