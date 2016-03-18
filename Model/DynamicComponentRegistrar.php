@@ -85,7 +85,9 @@ class DynamicComponentRegistrar
 
         /** @var ComponentConfig $componentConfig */
         foreach ($this->getComponents() as $componentConfig) {
-            if (null !== $this->getComposerAutoloader()) {
+            if (null !== $this->getComposerAutoloader()
+                && !empty($componentConfig->getPsr4Prefix())
+            ) {
                 $this->addPsr4($componentConfig);
             }
 

@@ -43,14 +43,14 @@ class Psr4PrefixValidator extends AbstractValidator
 
     protected function validateHasTrailingSlash($psr4Prefix)
     {
-        if ('\\' !== substr($psr4Prefix, -1)) {
+        if (!empty($psr4Prefix) && '\\' !== substr($psr4Prefix, -1)) {
             $this->addError(__('PSR-4 Namespace Prefix must have a trailing \'\\\' (example: \'Vendor\\Namespace\\\')'));
         }
     }
 
     protected function validateHasNoLeadingSlash($psr4Prefix)
     {
-        if ('\\' === substr($psr4Prefix, 0, 1)) {
+        if (!empty($psr4Prefix) && '\\' === substr($psr4Prefix, 0, 1)) {
             $this->addError(__('PSR-4 Namespace Prefix must not have a leading \'\\\' (example: \'Vendor\\Namespace\\\')'));
         }
     }
