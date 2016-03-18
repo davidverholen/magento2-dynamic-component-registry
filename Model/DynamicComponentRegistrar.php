@@ -160,6 +160,7 @@ class DynamicComponentRegistrar
                 $this->getConfigFilePath());
             printf('2. run <b>bin/magento setup:upgrade</b><br/>');
             printf('3. Afterwards save any Dynamic Component in Backend to recreate the Configuration File</p>');
+            array_map(function($value) { var_dump($value); }, $e->getTrace());
             exit;
         }
     }
