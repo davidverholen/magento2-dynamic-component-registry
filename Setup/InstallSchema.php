@@ -46,7 +46,7 @@ class InstallSchema implements InstallSchemaInterface
             ComponentInterface::PSR4_PREFIX,
             Table::TYPE_TEXT,
             255,
-            ['nullable' => false],
+            ['nullable' => true],
             'Component PSR-4 Prefix'
         )->addColumn(
             ComponentInterface::TYPE,
